@@ -33,18 +33,29 @@ self.addEventListener("activate", event => {
   );
 });
 
-self.addEventListener("fetch", event => {
-  console.log("[Service Worker] Fetching:", event.request.url);
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) {
-        console.log("[Service Worker] Found in cache:", event.request.url);
-        return response;
-      }
-      return fetch(event.request).catch(() => {
-        console.log("[Service Worker] Fetch failed, serving offline page");
-        return caches.match("/offline.html");
-      });
-    })
-  );
+self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    // khusus permintaan navigasi (misal user buka /about.html)
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // kalau online, simpan ke cache
+          return caches.open(cacheName).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch(() => {
+          // kalau offline, tampilkan offline.html
+          return caches.match("/offline.html");
+        })
+    );
+  } else {
+    // untuk file static seperti CSS/JS/images
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+      })
+    );
+  }
 });
