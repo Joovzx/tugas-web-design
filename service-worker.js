@@ -1,4 +1,4 @@
-const cacheName = "pwa-cache-v3"; // incremented version to force update
+const cacheName = "pwa-cache-v3"; 
 const assets = [
   "./",
   "./index.html",
@@ -35,23 +35,19 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
-    // khusus permintaan navigasi (misal user buka /about.html)
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          // kalau online, simpan ke cache
           return caches.open(cacheName).then((cache) => {
             cache.put(event.request, response.clone());
             return response;
           });
         })
         .catch(() => {
-          // kalau offline, tampilkan offline.html
           return caches.match("./offline.html");
         })
     );
   } else {
-    // untuk file static seperti CSS/JS/images
     event.respondWith(
       caches.match(event.request).then((response) => {
         return response || fetch(event.request);
