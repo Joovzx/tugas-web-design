@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home of Jovantri PWA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: #294b61;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #bac2c1;
+        }
+
+        nav a.active::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background: #bac2c1;
+            border-radius: 2px;
+            animation: underline 0.3s;
+        }
+
+        @keyframes underline {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .container {
+            position: relative;
+            max-width: 600px;
+            margin: 40px auto;
+            background: #bac2c1;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .img-free {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 90px;
+        }
+
+        .img-free0 {
+            position: absolute;
+            top: 190px;
+            left: 600px;
+            width: 90px;
+        }
+
+        h1 {
+            color: #043459;
+        }
+
+        p {
+            color: #043459;
+        }
+
+        #install-btn {
+            background: #294b61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #install-btn:hover {
+            background: #1e3747;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+        <img src="./elements/love.png" class="img-free img-rotate-15">
+        <img src="./elements/pg-sparkle.png" class="img-free0 img-rotate-15">
+        <h1>Chill, it's home 🏠</h1>
+        <p>Hola, this is <b>home</b>, my website.</p>
+        <p>Feel free to explore the other pages!</p>
+        <p>This is a Progressive Web App (PWA) that can be installed on your device for a native app-like experience. It works offline and provides fast loading.</p>
+        <p>Made with ❤️ by Jovantri</p>
+        <button id="install-btn">Install App</button>
+    </div>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("serviceworker.js");
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>

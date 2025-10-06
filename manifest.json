@@ -1,0 +1,20 @@
+{
+  "name": "Website Sederhana Jovantri Immanuel Gulo",
+  "short_name": "WebJovantri",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3",
+  "icons": [
+    {
+      "src": "./icons/iconic.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/iconic.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

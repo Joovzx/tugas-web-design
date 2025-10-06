@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact of Jovantri PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: #294b61;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #bac2c1;
+        }
+
+        nav a.active::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background: #bac2c1;
+            border-radius: 2px;
+            animation: underline 0.3s;
+        }
+
+        @keyframes underline {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            background: #bac2c1;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .img-free {
+            position: absolute;
+            top: -78px;
+            left: 800px;
+            width: 120px;
+        }
+
+        .img-free0 {
+            position: absolute;
+            top: 760px;
+            left: -120px;
+            width: 240px;
+        }
+
+        h1 {
+            color: #043459;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        p {
+            color: #043459;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            color: #043459;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #043459;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #294b61;
+            box-shadow: 0 0 5px rgba(41, 75, 97, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+        }
+
+        .radio-option label {
+            display: inline;
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: #294b61;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .submit-btn:hover {
+            background: #1e3747;
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        .form-instructions {
+            text-align: center;
+            color: #043459;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        #install-btn {
+            background: #294b61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #install-btn:hover {
+            background: #1e3747;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .img-free {
+                position: static;
+                display: block;
+                margin: 0 auto 20px;
+                width: 80px;
+            }
+
+            .img-free0 {
+                position: static;
+                display: block;
+                margin: 20px auto 0;
+                width: 100px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .form-group label {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="container">
+        <img src="./elements/phone.png" class="img-free">
+        <img src="./elements/social.png" class="img-free0">
+
+        <h1>Contact</h1>
+
+        <div class="contact-info">
+            <p>Contact me at e-mail by clicking on <a href="mailto:jovuelimanuel@gmail.com"><b>this</b></a>.</p>
+            <p>Atau gunakan form di bawah ini untuk mengirim pesan:</p>
+        </div>
+
+        <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-instructions">
+                <p>Silakan isi form di bawah ini. Semua field yang bertanda (*) wajib diisi.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="nama">Nama Lengkap *</label>
+                <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap Anda">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="contoh@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="kategori">Kategori Pesan *</label>
+                <select id="kategori" name="kategori" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="pertanyaan">Pertanyaan</option>
+                    <option value="saran">Saran</option>
+                    <option value="masalah">Masalah</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pesan">Pesan *</label>
+                <textarea id="pesan" name="pesan" required placeholder="Tuliskan pesan Anda di sini..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Ingin menerima balasan?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="balasan-ya" name="balasan" value="ya" required>
+                        <label for="balasan-ya">Ya</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="balasan-tidak" name="balasan" value="tidak" required>
+                        <label for="balasan-tidak">Tidak</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Kirim Pesan</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <p>Feel free to explore the other pages!</p>
+            <p>This website is a Progressive Web App (PWA) that can be installed on your device for a native app-like experience. It works offline and loads quickly.</p>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = new FormData(event.target);
+            const nama = formData.get('nama');
+            const email = formData.get('email');
+            const kategori = formData.get('kategori');
+            const pesan = formData.get('pesan');
+            const balasan = formData.get('balasan');
+
+            // Simple validation
+            if (!nama || !email || !kategori || !pesan || !balasan) {
+                alert('Mohon lengkapi semua field yang wajib diisi!');
+                return;
+            }
+
+            // Show success message
+            alert('Form berhasil dikirim! Terima kasih atas pesan Anda.');
+
+            // Reset form
+            event.target.reset();
+
+            // You can add additional functionality here, such as:
+            // - Sending data to a server
+            // - Storing in localStorage
+            // - Redirecting to a confirmation page
+        }
+
+        // Add some interactive enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+
+            // Add focus effects to form inputs
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("serviceworker.js");
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
