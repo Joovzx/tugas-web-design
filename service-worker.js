@@ -1,10 +1,10 @@
 const cacheName = "pwa-cache-v3"; // incremented version to force update
 const assets = [
-  "/",
-  "/index.html",
-  "/about.html",
-  "/contact.html",
-  "/offline.html"
+  "./",
+  "./index.html",
+  "./about.html",
+  "./contact.html",
+  "./offline.html"
 ];
 
 self.addEventListener("install", event => {
@@ -47,7 +47,7 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() => {
           // kalau offline, tampilkan offline.html
-          return caches.match("/offline.html");
+          return caches.match("./offline.html");
         })
     );
   } else {
